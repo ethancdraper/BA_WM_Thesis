@@ -1,0 +1,59 @@
+Last login: Wed Jun 29 12:02:56 on ttys001
+ethandraper@Ethans-Air ~ % pwd
+/Users/ethandraper
+ethandraper@Ethans-Air ~ % ls
+0_xvz
+<Return>
+Applications
+Desktop
+Documents
+Downloads
+Library
+Movies
+Music
+OneDrive - St. Francis Xavier University
+Pictures
+Public
+Task12345BASH.sh
+Zotero
+date.sh
+hello-world.sh
+ethandraper@Ethans-Air ~ % cd Downloads
+ethandraper@Ethans-Air Downloads % python fslinstaller.py
+--- FSL Installer - Version 3.2.3 ---
+[Warning] Some operations of the installer require administative rights,
+    for example installing into the default folder of /usr/local.
+    If your account is an 'Administrator' (you have 'sudo' rights)
+    then you will be prompted for your administrator password
+    when necessary.
+When asked a question, the default answer is given in square brackets.
+Hit the Enter key to accept this default answer.
+[Warning] apple 21 not officially supported - trying to locate support for an earlier version - this may not work
+Where would you like the FSL install to be (including the FSL folder name)? [/usr/local/fsl]:
+Downloading...
+Checking FSL package
+[OK] File downloaded
+Installing FSL software version 6.0.5.2...
+We require your password to continue...
+password:
+[OK] FSL software installed.
+Performing post install tasks
+Checking for X11 windowing system (required for FSL GUIs).
+[OK] X11 (required for GUIs) found
+Stage 1
+By installing this python distribution you agree to the license terms in
+/usr/local/fsl/fslpython/LICENSE.txt
+100%
+Stage 2
+100%
+/var/folders/8v/qjfvyhj16bd7h08c7pjjtgjc0000gn/T/fslpythonXXXX.Bf6bJtoW/fslpython_miniconda_installer.log
+Creating links to applications.
+fslpython/envs/fslpython/bin/FSLeyes.app
+Post install setup complete
+Creating Application links...
+[OK] /Applications links created/updated
+[OK] Post installation setup complete
+Setting up FSL software...
+[OK] User profile updated with FSL settings, you will need to log out and back in to use the FSL tools.
+ethandraper@Ethans-Air Downloads %
+ethandraper@Ethans-Air Downloads %
