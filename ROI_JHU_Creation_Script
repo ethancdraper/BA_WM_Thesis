@@ -1,0 +1,17 @@
+# SELECT THE JHU ATLAS
+ATLAS="/usr/local/fsl/data/atlases/JHU/JHU-ICBM-labels-2mm.nii.gz"
+
+# FIRST ROI THRESHOLDS
+THR_L=0.8
+THR_U=1.2
+
+# MAKE OTHER ROIS
+while read -r roi; do
+  fslmaths "$ATLAS" -thr "$THR_L" -uthr "$THR_U" -bin "$roi"
+  echo "Created ROI: $roi with thresholds -thr $THR_L -uthr $THR_U"
+  # Increment thresholds by 1
+  THR_L=$(echo "$THR_L + 1" | bc)
+  THR_U=$(echo "$THR_U + 1" | bc)
+done < "ROI_JHU_List"
+
+echo "ROIs have been created"
