@@ -1,0 +1,11 @@
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+while read -r ID; do
+    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub${ID}"
+    cd "sub-${ID}/anat"
+    fsl_anat -i sub-${ID}_T1w.nii.gz
+    echo "fsl_anat has been run for $ID"
+    cd ..
+done < "$sub_list"
+
+echo "fsl_anat has been performed for all participants in sub_list"
