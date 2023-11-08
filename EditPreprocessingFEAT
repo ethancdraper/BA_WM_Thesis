@@ -1,7 +1,7 @@
 sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
 
 while read -r ID; do
-    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub${ID}"
+    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
     cd "sub-${ID}"
     cp "/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/MASTER_BIPOLAR_design.fsf" "preprocessing_design_${ID}.fsf"
     echo "fsf file has been created for $ID"
