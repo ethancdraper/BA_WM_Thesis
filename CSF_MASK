@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source "/usr/local/fsl/etc/fslconf/fsl.sh"
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+while read -r ID; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    cd "${PATH}"
+    /usr/local/fsl/bin/fslmaths "${PATH}/anat/sub-${ID}_T1w.anat/T1_fast_pve_0.nii.gz" -thr 0.55 -bin CSF_mask
+    /usr/local/fsl/bin/applywarp -i ${PATH}/CSF_mask.nii.gz -o CSF_mask_func -r ${PATH}/func/sub-${ID}_task-rest_bold.feat/example_func.nii.gz --premat=${PATH}/func/sub-${ID}_task-rest_bold.feat/reg/highres2example_func.mat --interp=nn
+    echo "CSF mask has been created, thresholded at 55, and binzarised for $ID"
+    /usr/local/fsl/bin/fslmeants -i ${PATH}/func/sub-${ID}_task-rest_bold.feat/filtered_func_data.nii.gz -o CSF_mask_func_ts.txt -m ${PATH}/CSF_mask_func.nii.gz --eig
+    echo "CSF ts has been extracted for $ID"
+    cd ..
+done < "$sub_list"
+echo "CSF mask has been created, thresholded at 55, binzarised, and had the ts extracted for all participants in sub_list"
