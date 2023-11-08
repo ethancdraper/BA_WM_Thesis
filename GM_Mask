@@ -1,0 +1,14 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh 
+
+while read -r ID; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    cd "${PATH}"
+    /usr/local/fsl/bin/fslmaths "${PATH}/anat/sub-${ID}_T1w.anat/T1_fast_pve_1.nii.gz" -thr 0.8 -bin GM_mask
+    /usr/local/fsl/bin/applywarp -i ${PATH}/GM_mask.nii.gz -o GM_mask_func -r ${PATH}/func/sub-${ID}_task-rest_bold+.feat/example_func.nii.gz --premat=${PATH}/func/sub-${ID}_task-rest_bold+.feat/reg/highres2example_func.mat --interp=nn
+    echo "GM mask has been created, thresholded at 80, and binzarised for $ID"
+    cd ${CORE}
+done < "$sub_list"
+echo "GM mask has been created, thresholded at 80, binzarised, and put into func space for all participants in sub_list"
