@@ -1,0 +1,11 @@
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh 
+
+while read -r ID; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/func/sub-${ID}_task-rest_bold.feat+/reg/"
+    cd "sub-${ID}"
+    /Users/ethandraper/fsl/bin/invwarp -w /Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/func/sub-${ID}_task-rest_bold+.feat/reg/example_func2standard_warp.nii.gz -o standard2example_func_${ID}_nf -r /Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/func/sub-${ID}_task-rest_bold+.feat/reg/example_func.nii.gz
+    echo "Standard2example_func_nf has been created for $ID"
+    cd ..
+done < "$sub_list"
+echo "Standard2example_func has been created for all participants in sub_list"
