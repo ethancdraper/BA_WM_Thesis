@@ -1,0 +1,20 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+JHU_ROI_list="/Users/ethandraper/Desktop/BA_Thesis/ROI/JHU/ROI_JHU_List"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh
+
+while read -r ID; do
+  while read -r ROI; do
+    ROI_path="/Users/ethandraper/Desktop/BA_Thesis/ROI/JHU"
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    SUB_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/JHU_ROIs"
+    cd "${SUB_ROI_Path}"
+    /usr/local/fsl/bin/applywarp -i ${ROI_path}/${ROI}.nii.gz -o ${ROI}_func_${ID} -r ${PATH}/func/sub-${ID}_task-rest_bold+.feat/example_func.nii.gz --premat=${PATH}/func/sub-${ID}_task-rest_bold+.feat/reg/highres2example_func.mat --interp=nn
+    echo "$ROI WM mask has been put into func space for $ID"
+    cd ${CORE}
+done < "$JHU_ROI_list"
+echo "All WM ROI has been put into func space for $ID"
+cd ${PATH}
+done < "$sub_list"
+echo "All WM ROIs have been put into func space for all participants"
