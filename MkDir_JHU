@@ -1,0 +1,10 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+while read -r ID; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    cd "${PATH}"
+    /bin/mkdir -p "/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/JHU_ROIs"
+    cd "${CORE}"
+done < "$sub_list"
