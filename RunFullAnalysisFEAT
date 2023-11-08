@@ -1,17 +1,19 @@
 sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
 
 while read -r ID; do
-    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub${ID}"
-    cd "sub-${ID}"
-    cp "/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/FullAnalysisFEAT" "design_${ID}.fsf"
+    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    PD="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    cd "${path}/sub-${ID}"
+    cp "/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/SecondLevelAnalysis_design.fsf" "design_${ID}.fsf"
     echo "Full FEAT fsf file has been created for $ID"
 
     # CHANGE PATH AND ID FOR EACH COPIED FSF USING AWK
-    awk -v ID=${ID} -v path=${path} '{gsub(/PARID/, ID); gsub(/CORE/, path); print}' design_${ID}.fsf > design_${ID}_edited.fsf
-    mv "design_${ID}.fsf" "design_${ID}.fsf"
+
+    awk -v ID=${ID} -v path=${path} '{gsub(/PARID/, ID); gsub(/CORE/, path); print}' "design_${ID}.fsf" > "design_${ID}_edited.fsf"
+    mv "design_${ID}_edited.fsf" "design_${ID}.fsf"
 
     echo "Full FEAT fsf file has been edited for $ID"
-    cd ..
+    cd $PD
 done < "$sub_list"
 
 echo "Edited full FEAT fsf files have been created"
