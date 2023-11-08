@@ -1,0 +1,10 @@
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+while read -r ID; do
+    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub${ID}"
+    cd "sub-${ID}"
+    feat preprocessing_design_${ID}.fsf
+    echo "Preprocessing has been run for $ID"
+    cd ..
+done < "$sub_list"
+echo "Preprocessing has been run for all participants in sub_list"
