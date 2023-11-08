@@ -1,11 +1,12 @@
 sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+PD="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh 
 
 while read -r ID; do
-    path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub${ID}"
-    cd "sub-${ID}"
-    fslmaths /func/filtered_func_data.nii.gz -bptf -0 -2.5 hpfeatlpmaths
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    cd "${PATH}"
+    /usr/local/fsl/bin/fslmaths "${PATH}/func/sub-${ID}_task-rest_bold+.feat/filtered_func_data.nii.gz" -bptf -0 -2.5 hpfeatlpmaths
     echo "Low pass filtering has been applied for $ID"
-    cd ..
+    cd ${PD}
 done < "$sub_list"
 echo "Low pass filtering has been applied for all participants in sub_list"
-
