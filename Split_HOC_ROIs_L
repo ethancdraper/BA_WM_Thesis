@@ -1,0 +1,11 @@
+#!/bin/bash
+ROI_HOC_list="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC/ROI_HOC_list"
+ROI_PATH_L="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC_L"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh
+
+while read -r ROI; do
+  cd ${ROI_PATH_L}
+  /Users/ethandraper/fsl/bin/fslmaths ${ROI} -roi 45 90 1 -1 1 -1 0 1 ${ROI}_L
+  echo "${ROI}_L has been made"
+done < "$ROI_HOC_list"
+echo "Left GM ROIs have been created"
