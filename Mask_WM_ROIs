@@ -1,0 +1,21 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh
+
+while read -r ID; do
+  SUB_JHU_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/JHU_ROIs"
+  SUB_PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+  JHU_ROI_list="/Users/ethandraper/Desktop/BA_Thesis/ROI/JHU/ROI_JHU_List"
+
+  while read -r ROI; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    SUB_JHU_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/JHU_ROIs"
+    cd "${SUB_JHU_ROI_Path}"
+    /Users/ethandraper/fsl/bin/fslmaths ${SUB_JHU_ROI_Path}/${ROI}_func_${ID}.nii.gz -mas ${PATH}/WM_mask_func.nii.gz ${ROI}_WM80
+  done < "$JHU_ROI_list"
+echo "All WM ROIs have been WM masked for $ID"
+cd ${CORE}
+done < "$sub_list"
+echo "All WM ROIs have been WM masked for all participants"

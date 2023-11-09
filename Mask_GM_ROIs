@@ -1,0 +1,22 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh
+
+while read -r ID; do
+  SUB_HOC_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/HOC_ROIs"
+  SUB_PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+  HOC_ROI_list="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC/ROI_HOC_List_Lat"
+
+  while read -r ROI; do
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    SUB_HOC_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/HOC_ROIs"
+    cd "${SUB_HOC_ROI_Path}"
+    /Users/ethandraper/fsl/bin/fslmaths ${SUB_HOC_ROI_Path}/${ROI}_func_${ID}_R.nii.gz -mas ${PATH}/GM_mask_func.nii.gz ${ROI}_R_GM80
+    /Users/ethandraper/fsl/bin/fslmaths ${SUB_HOC_ROI_Path}/${ROI}_func_${ID}_L.nii.gz -mas ${PATH}/GM_mask_func.nii.gz ${ROI}_L_GM80
+  done < "$HOC_ROI_HOC_List_Lat"
+  echo "All GM ROIs have been GM masked for $ID"
+  cd ${CORE}
+done < "$sub_list"
+echo "All GM ROIs have been GM masked for all participants"
