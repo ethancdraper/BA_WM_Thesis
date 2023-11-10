@@ -1,0 +1,23 @@
+#!/bin/bash
+sub_list="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub_list"
+HOC_ROI_list="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC/ROI_HOC_List"
+source /Users/ethandraper/fsl/etc/fslconf/fsl.sh
+
+while read -r ID; do
+  while read -r ROI; do
+    ROI_path_L="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC_L"
+    ROI_path_R="/Users/ethandraper/Desktop/BA_Thesis/ROI/HOC_R"
+    PATH="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}"
+    CORE="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR"
+    SUB_ROI_Path="/Users/ethandraper/Desktop/BA_Thesis/UCLA/Subjects/BIPOLAR/sub-${ID}/HOC_ROIs"
+    cd "${SUB_ROI_Path}"
+    /usr/local/fsl/bin/applywarp -i ${ROI_path_L}/${ROI}.nii.gz -o ${ROI}_L_func_${ID} -r ${PATH}/func/sub-${ID}_task-rest_bold+.feat/example_func.nii.gz --premat=${PATH}/func/sub-${ID}_task-rest_bold+.feat/reg/highres2example_func.mat --interp=nn
+    echo "$ROI left GM mask has been put into func space for $ID"
+    /usr/local/fsl/bin/applywarp -i ${ROI_path_R}/${ROI}.nii.gz -o ${ROI}_R_func_${ID} -r ${PATH}/func/sub-${ID}_task-rest_bold+.feat/example_func.nii.gz --premat=${PATH}/func/sub-${ID}_task-rest_bold+.feat/reg/highres2example_func.mat --interp=nn
+    echo "$ROI right GM mask has been put into func space for $ID"
+    cd ${CORE}
+done < "$HOC_ROI_list"
+echo "All GM ROI has been put into func space for $ID"
+cd ${PATH}
+done < "$sub_list"
+echo "All GM ROIs have been put into func space for all participants"
